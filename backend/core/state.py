@@ -15,7 +15,6 @@ from backend.core.config import FIXED_CYCLE_SPLIT_SEC
 from backend.core.controller_baseline import FixedTimeController
 from backend.core.controller_adaptive import AdaptiveController
 from backend.core.controller_actuated import ActuatedController
-from backend.core.controller_max_pressure import MaxPressureController
 from backend.core.controller_rl import RLTrafficController
 from backend.core.emergency import EmergencyPriorityManager
 from backend.core.safety_layer import SafetySupervisor
@@ -38,7 +37,6 @@ class AppState:
         self.fixed_ctrl: Optional[FixedTimeController] = None
         self.actuated_ctrl: Optional[ActuatedController] = None
         self.adaptive_ctrl: Optional[AdaptiveController] = None
-        self.max_pressure_ctrl: Optional[MaxPressureController] = None
         self.rl_ctrl: Optional[RLTrafficController] = None
         self.emergency_manager: Optional[EmergencyPriorityManager] = None
         self.safety_supervisor: Optional[SafetySupervisor] = None
@@ -82,7 +80,6 @@ class AppState:
         )
         self.actuated_ctrl = ActuatedController(phases=self.layout.phases)
         self.adaptive_ctrl = AdaptiveController(phases=self.layout.phases)
-        self.max_pressure_ctrl = MaxPressureController(phases=self.layout.phases)
         self.prediction_ctrl = AdaptiveController(
             phases=self.layout.phases,
             mode=ControllerMode.PREDICTION_ASSISTED,
@@ -120,8 +117,6 @@ class AppState:
             return self.actuated_ctrl
         elif self.mode == ControllerMode.PREDICTION_ASSISTED:
             return self.prediction_ctrl or self.adaptive_ctrl
-        elif self.mode == ControllerMode.MAX_PRESSURE:
-            return self.max_pressure_ctrl or self.adaptive_ctrl
         elif self.mode == ControllerMode.DEEP_RL:
             return self.rl_ctrl or self.adaptive_ctrl
         else:
@@ -209,8 +204,6 @@ class AppState:
             self.adaptive_ctrl.reset()
         if getattr(self, "prediction_ctrl", None):
             self.prediction_ctrl.reset()
-        if getattr(self, "max_pressure_ctrl", None):
-            self.max_pressure_ctrl.reset()
         if getattr(self, "rl_ctrl", None):
             self.rl_ctrl.reset()
         if getattr(self, "emergency_manager", None):

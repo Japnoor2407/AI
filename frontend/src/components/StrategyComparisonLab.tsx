@@ -11,7 +11,7 @@ export default function StrategyComparisonLab() {
   const [scenario, setScenario] = useState<string>('normal')
   const [demandMultiplier, setDemandMultiplier] = useState<number>(1.0)
   const [strategies, setStrategies] = useState<string[]>([
-    'fixed_time', 'actuated', 'adaptive', 'max_pressure', 'deep_rl'
+    'fixed_time', 'actuated', 'adaptive', 'deep_rl'
   ])
   const [loading, setLoading] = useState<boolean>(false)
   const [report, setReport] = useState<ComparisonLabReport | null>(null)
@@ -112,7 +112,7 @@ export default function StrategyComparisonLab() {
               </span>
             </div>
             <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
-              Compares all five traffic signal controllers under <strong>strictly identical vehicle arrival timestamps</strong> and Pune CCTV road demand. Evaluates delay reduction, queues, throughput, and time saved.
+              Compares all four traffic signal controllers under <strong>strictly identical vehicle arrival timestamps</strong> and Pune CCTV road demand. Evaluates delay reduction, queues, throughput, and time saved.
             </p>
           </div>
 
@@ -203,7 +203,6 @@ export default function StrategyComparisonLab() {
                 { key: 'fixed_time', label: 'Fixed-Time' },
                 { key: 'actuated', label: 'Actuated' },
                 { key: 'adaptive', label: 'Adaptive' },
-                { key: 'max_pressure', label: 'Max-Pressure' },
                 { key: 'deep_rl', label: 'Deep RL (PPO)' },
               ].map(s => {
                 const checked = strategies.includes(s.key)
@@ -249,7 +248,7 @@ export default function StrategyComparisonLab() {
             {loading ? (
               <>
                 <RefreshCw size={14} className="animate-spin" />
-                <span>Simulating All 5 Strategies...</span>
+                <span>Simulating All 4 Strategies...</span>
               </>
             ) : (
               <>
@@ -665,9 +664,9 @@ export default function StrategyComparisonLab() {
             🏆
           </div>
           <div className="max-w-md mx-auto space-y-2">
-            <h3 className="text-base font-bold text-white">Ready to Compare All 5 Strategies</h3>
+            <h3 className="text-base font-bold text-white">Ready to Compare All 4 Strategies</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Click <strong>Run Strategy Comparison</strong> above to evaluate Fixed-Time, Actuated, Weighted Adaptive, Max-Pressure, and Deep RL on identical Pune CCTV traffic demand.
+              Click <strong>Run Strategy Comparison</strong> above to evaluate Fixed-Time, Actuated, Weighted Adaptive, and Deep RL on identical Pune CCTV traffic demand.
             </p>
           </div>
           <button

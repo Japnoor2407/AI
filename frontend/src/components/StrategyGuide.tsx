@@ -148,43 +148,6 @@ const STRATEGIES: StrategyDetail[] = [
     sensorNeed: 'Live Queue & Waiting Sensors',
   },
   {
-    id: 'max_pressure',
-    name: 'Max-Pressure Control',
-    badge: 'Network Physics',
-    badgeColor: 'bg-blue-950/80 text-blue-300 border-blue-600/40',
-    borderColor: 'border-blue-700/40',
-    accentColor: 'text-blue-400',
-    oneLiner: 'Treats traffic like pressurized water in a pipe network, prioritizing green lights for roads with the greatest difference between incoming queues and downstream space.',
-    icon: <Gauge size={20} className="text-blue-400" />,
-    howItWorks: [
-      'Measures incoming vehicle queue depth on upstream entry approaches.',
-      'Measures available capacity and vehicle queues on the downstream exit links.',
-      'Calculates "pressure" for each movement: Pressure = Upstream Queue − Downstream Queue.',
-      'Selects the signal phase with the greatest net pressure, maximizing vehicle clearing without causing gridlock downstream.',
-    ],
-    analogy: 'Like opening valves in a pressurized plumbing network. Water only flows efficiently into a pipe if the receiving chamber has open space. If a downstream pipe is backed up, opening the valve only causes a damaging flood.',
-    decisionFlow: [
-      { step: '1. Pressure Calculation', detail: 'Measures incoming backlog and subtracts downstream exit congestion.' },
-      { step: '2. Network Discharge', detail: 'Activates phase with maximum net pressure to maximize throughput.' },
-      { step: '3. Spillback Guard', detail: 'Refuses to send vehicles into exit lanes that are already blocked.' },
-    ],
-    pros: [
-      'Mathematically proven to stabilize queues across dense urban networks.',
-      'Prevents intersection "box blocking" and spillback gridlock where cars get trapped in the junction.',
-      'Operates autonomously without needing pre-programmed cycle timetables.',
-      'Maximizes total vehicle throughput under heavy saturation.',
-    ],
-    cons: [
-      'Requires sensors monitoring downstream exit roads, not just the incoming stop bar.',
-      'Can occasionally starve quiet side streets if their net pressure remains consistently lower than busy avenues.',
-      'Less intuitive for non-technical traffic managers to understand.',
-    ],
-    bestFor: 'Dense downtown grids, closely spaced traffic signals, and arterial corridors where intersection spillback is a constant risk.',
-    keyDifference: 'The only algorithm that actively inspects downstream exit road capacity before deciding to turn the light green.',
-    intelligence: 'Physics-Optimal (85%)',
-    sensorNeed: 'Network-Wide Queue Detectors',
-  },
-  {
     id: 'deep_rl',
     name: 'Deep Reinforcement Learning (PPO)',
     badge: 'Self-Learning AI',
@@ -251,7 +214,7 @@ export default function StrategyGuide() {
               </span>
             </div>
             <p className="text-xs text-slate-400 mt-1.5 max-w-3xl leading-relaxed">
-              Explore how all five traffic signal control strategies operate at Alankar Chowk, Pune.
+              Explore how all four traffic signal control strategies operate at Alankar Chowk, Pune.
               Written in simple, plain language for traffic engineers, city planners, and everyday commuters.
             </p>
           </div>
@@ -266,7 +229,7 @@ export default function StrategyGuide() {
                   : 'bg-slate-800/60 border-slate-700/80 text-slate-400 hover:text-white'
               }`}
             >
-              All 5 Strategies
+              All 4 Strategies
             </button>
             {STRATEGIES.map(s => (
               <button
@@ -285,7 +248,7 @@ export default function StrategyGuide() {
         </div>
 
         {/* Quick Highlights Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">
           {STRATEGIES.map(s => (
             <div
               key={s.id}

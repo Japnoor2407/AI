@@ -1,11 +1,10 @@
 """
 Strategy Comparison Lab: Benchmarking framework for fair, reproducible comparisons
-across all 5 traffic control strategies:
+across all 4 traffic control strategies:
 1. Fixed-Time (Baseline reference)
 2. Actuated (Rule-based gap-out)
 3. Weighted Adaptive (Queue & delay heuristic)
-4. Max-Pressure (Network throughput & backpressure)
-5. Deep Reinforcement Learning (PPO neural policy)
+4. Deep Reinforcement Learning (PPO neural policy)
 
 Guarantees:
 - Strictly identical vehicle arrivals and random seed across all tested strategies.
@@ -30,7 +29,6 @@ from backend.core.config import FIXED_CYCLE_SPLIT_SEC
 from backend.core.controller_baseline import FixedTimeController
 from backend.core.controller_actuated import ActuatedController
 from backend.core.controller_adaptive import AdaptiveController
-from backend.core.controller_max_pressure import MaxPressureController
 from backend.core.controller_rl import RLTrafficController
 from backend.simulation.junction_layout import JunctionLayout
 from backend.simulation.replay_engine import JunctionSimulator
@@ -57,11 +55,6 @@ STRATEGY_METADATA = {
         "name": "Weighted Adaptive",
         "description": "Dynamic queue scoring with starvation prevention and delay balancing.",
         "category": "AI / Heuristic",
-    },
-    "max_pressure": {
-        "name": "Max-Pressure",
-        "description": "Prioritizes signal phases with greatest upstream queue vs downstream exit capacity.",
-        "category": "Feedback Control",
     },
     "deep_rl": {
         "name": "Deep Reinforcement Learning (PPO)",
@@ -273,7 +266,7 @@ def run_comparison_lab(
     arrivals_df = _apply_scenario_scaling(arrivals_df, scenario, mult)
 
     # Available strategy keys
-    all_possible = ["fixed_time", "actuated", "adaptive", "max_pressure", "deep_rl"]
+    all_possible = ["fixed_time", "actuated", "adaptive", "deep_rl"]
     if selected_strategies:
         strategies_to_run = [s for s in selected_strategies if s in all_possible]
     else:
@@ -298,8 +291,6 @@ def run_comparison_lab(
             ctrl = ActuatedController(phases=layout.phases)
         elif strat_key == "adaptive":
             ctrl = AdaptiveController(phases=layout.phases)
-        elif strat_key == "max_pressure":
-            ctrl = MaxPressureController(phases=layout.phases)
         elif strat_key == "deep_rl":
             ctrl = RLTrafficController(
                 phases=layout.phases,

@@ -47,7 +47,6 @@ function simplifyRationale(raw: string | null | undefined): string {
   if (r.includes('predict') || r.includes('forecast')) return 'Anticipating vehicle arrival spike from upstream — preemptively adjusting split.'
   if (r.includes('yellow') || r.includes('clearance')) return 'Clearance phase active — safely clearing the junction before next green.'
   if (r.includes('all_red') || r.includes('all-red')) return 'All-red clearance active — all approaches halted momentarily for safety.'
-  if (r.includes('pressure') || r.includes('max_pressure')) return 'Max-Pressure algorithm optimizing flow by maximizing discharge capacity.'
   if (r.includes('ppo') || r.includes('deep_rl') || r.includes('reinforcement')) return 'Deep RL PPO policy selected optimal phase to minimize total intersection delay.'
   if (r.includes('phase')) return 'Switching green phase to next approach group.'
   return 'Monitoring live traffic and dynamically adjusting signal timings.'
@@ -59,12 +58,6 @@ const MODE_OPTIONS = [
     label: 'Deep AI (PPO)',
     desc: 'Self-learning neural network policy trained with reinforcement learning to minimize delays and queues',
     accent: 'bg-purple-600 text-white',
-  },
-  {
-    id: 'MAX_PRESSURE' as const,
-    label: 'Max-Pressure',
-    desc: 'Mathematical network algorithm balancing incoming and outgoing vehicle queues to maximize discharge',
-    accent: 'bg-blue-600 text-white',
   },
   {
     id: 'ADAPTIVE' as const,
@@ -182,7 +175,7 @@ export default function Dashboard() {
   const [running, setRunning]   = useState(false)
   const [paused, setPaused]     = useState(false)
   const [speed, setSpeed]       = useState(1000)
-  const [mode, setMode]         = useState<'ADAPTIVE' | 'PREDICTION_ASSISTED' | 'ACTUATED' | 'FIXED_TIME' | 'MAX_PRESSURE' | 'DEEP_RL'>('DEEP_RL')
+  const [mode, setMode]         = useState<'ADAPTIVE' | 'PREDICTION_ASSISTED' | 'ACTUATED' | 'FIXED_TIME' | 'DEEP_RL'>('DEEP_RL')
   const [status, setStatus]     = useState<ControllerStatus | null>(null)
   const [current, setCurrent]   = useState<TrafficCurrent | null>(null)
   const [history, setHistory]   = useState<HistoryPoint[]>([])
@@ -249,7 +242,7 @@ export default function Dashboard() {
     await fetchAll()
   }
 
-  const handleModeSwitch = async (m: 'ADAPTIVE' | 'PREDICTION_ASSISTED' | 'ACTUATED' | 'FIXED_TIME' | 'MAX_PRESSURE' | 'DEEP_RL') => {
+  const handleModeSwitch = async (m: 'ADAPTIVE' | 'PREDICTION_ASSISTED' | 'ACTUATED' | 'FIXED_TIME' | 'DEEP_RL') => {
     setMode(m)
     await api.setMode(m)
   }

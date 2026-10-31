@@ -18,30 +18,29 @@ Traditional traffic lights operate on rigid, pre-timed timers. They keep motoris
 
 **AI2** replaces static timers with an intelligent, multi-strategy signal controller:
 1. **Listens to real traffic**: Reads vehicle queues and arrival patterns calibrated from real-world Pune CCTV surveillance footage.
-2. **Dynamically optimizes green lights**: Employs Deep Reinforcement Learning (PPO), Max-Pressure, and Dynamic Adaptive algorithms to continuously shift green light time to where demand is highest.
+2. **Dynamically optimizes green lights**: Employs Deep Reinforcement Learning (PPO) and Dynamic Adaptive algorithms to continuously shift green light time to where demand is highest.
 3. **Emergency Vehicle Priority (EVP)**: Provides an instant green corridor for ambulances, fire trucks, and police with safe clearance intervals.
 4. **Independent Safety Supervisor**: Mathematically guarantees that conflicting green lights can never occur and that yellow/all-red clearance intervals are strictly maintained.
-5. **Strategy Comparison Lab**: Allows city planners and evaluators to compare all 5 strategies under **strictly identical traffic demand** to measure exact waiting time saved.
+5. **Strategy Comparison Lab**: Allows city planners and evaluators to compare all 4 strategies under **strictly identical traffic demand** to measure exact waiting time saved.
 
 ---
 
 ## 🌟 Key Features
 
 ### 1. Strategy Comparison Lab (Central Benchmark)
-Run head-to-head experiments across all 5 traffic control strategies under identical vehicle arrivals:
+Run head-to-head experiments across all 4 traffic control strategies under identical vehicle arrivals:
 - **Identical Demand Replay**: Guarantees a 100% fair scientific comparison where every strategy experiences the exact same vehicles at the exact same seconds.
 - **Measurable Time Saved**: Calculates real delay reduction per vehicle, total cumulative hours saved, and queue reduction percentages.
 - **Fairness & Efficiency Index**: Computes Jain's Fairness Index to ensure side streets are not starved of green light.
 - **Plain-English Rationale**: Explains why the winning strategy outperformed traditional timers without confusing jargon.
 - **One-Click Export**: Save and download comprehensive benchmark reports in JSON and CSV formats.
 
-### 2. Five Independent Traffic Control Strategies
+### 2. Four Independent Traffic Control Strategies
 | Strategy | Type | How It Works |
 | :--- | :--- | :--- |
 | **Fixed-Time** | Baseline | Traditional predetermined timer cycling on fixed green durations regardless of traffic. |
 | **Vehicle Actuated** | Sensor-Driven | Detects approaching vehicles and extends green time only when queues are present. |
 | **Dynamic Adaptive** | Multi-Factor | Continuously shifts green time towards roads with the longest queues and waiting times. |
-| **Max-Pressure** | Network Theory | Balances upstream queues against downstream exit capacity to maximize intersection throughput. |
 | **Deep AI (PPO)** | Reinforcement Learning | Deep neural network policy trained via Proximal Policy Optimization to minimize total network delay. |
 
 ### 3. Emergency Vehicle Priority (EVP)
@@ -90,14 +89,14 @@ npm run dev
 
 ## 🧪 3-Step Demo Walkthrough
 
-1. **Compare All 5 Strategies**:
+1. **Compare All 4 Strategies**:
    - Open [http://localhost:5173](http://localhost:5173). You land on the **Strategy Comparison Lab**.
    - Select a duration (e.g. `15m`), choose a traffic condition (`Normal` or `Rush Hour`), and click **Run Strategy Comparison**.
    - View the overall winner badge, composite efficiency score (0–100), total waiting time saved, and plain-English performance rationale.
 
 2. **Test Live Simulation & Control**:
    - Switch to the **Live Intersection** tab.
-   - Choose a control strategy (e.g. **Deep AI (PPO)** or **Max-Pressure**).
+   - Choose a control strategy (e.g. **Deep AI (PPO)** or **Dynamic Adaptive**).
    - Click **Start Simulation**. Watch the 2D junction display live signals, countdowns, and vehicle queues in real-time.
 
 3. **Dispatch an Emergency Vehicle**:

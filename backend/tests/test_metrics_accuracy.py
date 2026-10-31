@@ -18,7 +18,6 @@ from backend.simulation.replay_engine import JunctionSimulator
 from backend.core.controller_baseline import FixedTimeController
 from backend.core.controller_adaptive import AdaptiveController
 from backend.core.controller_actuated import ActuatedController
-from backend.core.controller_max_pressure import MaxPressureController
 from backend.core.controller_rl import RLTrafficController
 from backend.data.loader import DatasetAdapter
 from backend.evaluation.evaluator import _collect_metrics
@@ -156,7 +155,6 @@ def test_all_strategies_identical_vehicle_arrivals(layout, arrivals_df):
         "fixed_time": FixedTimeController(phases=layout.phases),
         "actuated": ActuatedController(phases=layout.phases),
         "adaptive": AdaptiveController(phases=layout.phases),
-        "max_pressure": MaxPressureController(phases=layout.phases),
     }
     arrived_counts = {}
     for key, ctrl in controllers.items():
@@ -290,7 +288,6 @@ def test_starvation_nonnegative_all_strategies(layout, arrivals_df):
         "fixed_time": FixedTimeController(phases=layout.phases),
         "actuated": ActuatedController(phases=layout.phases),
         "adaptive": AdaptiveController(phases=layout.phases),
-        "max_pressure": MaxPressureController(phases=layout.phases),
         "deep_rl": RLTrafficController(
             phases=layout.phases,
             episode_duration_sec=_DURATION_SEC,
@@ -405,7 +402,7 @@ def test_scenario_uneven_consistent_arrivals():
     all strategies must experience identical vehicle arrival counts under the same seed.
     """
     from backend.evaluation.comparison_lab import run_comparison_lab
-    strategies = ["fixed_time", "actuated", "adaptive", "max_pressure"]
+    strategies = ["fixed_time", "actuated", "adaptive", "deep_rl"]
     rep = run_comparison_lab(
         duration_sec=300,
         scenario="uneven",
@@ -434,7 +431,7 @@ def test_consistency_score_validity():
     from backend.evaluation.comparison_lab import run_comparison_lab
     rep = run_comparison_lab(
         duration_sec=300,
-        selected_strategies=["fixed_time", "adaptive", "actuated", "max_pressure"],
+        selected_strategies=["fixed_time", "adaptive", "actuated", "deep_rl"],
         seed=42,
     )
     assert rep.most_consistent_strategy in rep.results

@@ -136,15 +136,14 @@ class TestComparisonLab:
             junction_id="AlankarChowk",
             date="11",
             duration_sec=30,
-            selected_strategies=["fixed_time", "actuated", "adaptive", "max_pressure", "deep_rl"],
+            selected_strategies=["fixed_time", "actuated", "adaptive", "deep_rl"],
             seed=42,
         )
 
         assert report.session_id is not None
         assert "fixed_time" in report.results
         assert "deep_rl" in report.results
-        assert "max_pressure" in report.results
-        assert len(report.rankings) == 5
+        assert len(report.rankings) == 4
 
         # Check rankings order (composite score descending)
         scores = [r.composite_score for r in report.rankings]

@@ -567,11 +567,6 @@ def controller_modes():
                 "description": "Demand-scored adaptive controller with starvation prevention and anti-congestion override.",
             },
             {
-                "value": "MAX_PRESSURE",
-                "label": "Max-Pressure (Congestion-Based)",
-                "description": "Prioritizes approaches with the highest queue pressure difference between input and exit.",
-            },
-            {
                 "value": "DEEP_RL",
                 "label": "Deep Reinforcement Learning (PPO)",
                 "description": "Trained PPO neural network policy maximizing throughput and minimizing delay and queue variance.",
