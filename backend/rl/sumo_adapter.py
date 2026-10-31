@@ -56,14 +56,53 @@ TLS_STATES = {
 }
 
 
+def find_sumo_home() -> Optional[str]:
+    """Find the SUMO home installation directory across common locations."""
+    candidates = [
+        os.environ.get("SUMO_HOME"),
+        r"D:\AI Project\sumo_bin",
+        r"C:\Program Files\Eclipse\Sumo",
+        r"C:\Program Files (x86)\Eclipse\Sumo",
+        r"D:\Sumo",
+        r"C:\Sumo",
+    ]
+    for c in candidates:
+        if c and os.path.isdir(c) and (
+            os.path.isfile(os.path.join(c, "bin", "sumo.exe"))
+            or os.path.isfile(os.path.join(c, "bin", "sumo"))
+        ):
+            return c
+    return None
+
+
+def get_sumo_binary(sumo_gui: bool = False) -> Optional[str]:
+    """Locate the SUMO or SUMO-GUI executable."""
+    home = find_sumo_home()
+    if home:
+        if "SUMO_HOME" not in os.environ:
+            os.environ["SUMO_HOME"] = home
+        bin_dir = os.path.join(home, "bin")
+        if bin_dir not in os.environ.get("PATH", ""):
+            os.environ["PATH"] = bin_dir + os.pathsep + os.environ.get("PATH", "")
+
+    exe_names = ["sumo-gui.exe", "sumo-gui"] if sumo_gui else ["sumo.exe", "sumo"]
+    for name in exe_names:
+        found = shutil.which(name)
+        if found:
+            return found
+
+    if home:
+        for name in exe_names:
+            candidate = os.path.join(home, "bin", name)
+            if os.path.isfile(candidate):
+                return candidate
+
+    return None
+
+
 def is_sumo_available() -> bool:
-    """Return True if a SUMO executable is discoverable on PATH."""
-    return bool(
-        shutil.which("sumo")
-        or shutil.which("sumo-gui")
-        or shutil.which("sumo.exe")
-        or shutil.which("sumo-gui.exe")
-    )
+    """Return True if a SUMO executable is discoverable."""
+    return get_sumo_binary() is not None
 
 
 class SimulationAdapter:
@@ -184,12 +223,10 @@ class SimulationAdapter:
     def _init_sumo(self):
         import traci
 
-        sumo_bin = (
-            shutil.which("sumo-gui") if self.sumo_gui else None
-        ) or shutil.which("sumo") or shutil.which("sumo.exe")
+        sumo_bin = get_sumo_binary(self.sumo_gui)
 
         if not sumo_bin:
-            raise FileNotFoundError("SUMO binary not found on system PATH.")
+            raise FileNotFoundError("SUMO binary not found on system PATH or SUMO_HOME.")
 
         # Ensure SUMO files exist
         sumo_dir = Path(__file__).parent.parent / "simulation" / "sumo"
@@ -202,7 +239,7 @@ class SimulationAdapter:
         # Generate routes from arrival data
         demand_generator.generate_routes_xml(self.arrival_data, max_duration_sec=self._total_steps)
 
-        # Start TraCI
+        # Start TraCI with fast retry timeout to handle connection issues gracefully
         cmd = [
             sumo_bin,
             "-c", str(sumocfg_path),
@@ -212,7 +249,7 @@ class SimulationAdapter:
             "--time-to-teleport", "-1",
         ]
 
-        traci.start(cmd)
+        traci.start(cmd, numRetries=3)
         self._traci = traci
 
         # Initialise state

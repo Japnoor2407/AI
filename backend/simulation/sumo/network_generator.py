@@ -37,6 +37,16 @@ class NetworkGenerator:
 
         # Attempt compilation via netconvert if installed
         netconvert_bin = shutil.which("netconvert") or shutil.which("netconvert.exe")
+        if not netconvert_bin:
+            try:
+                from backend.rl.sumo_adapter import find_sumo_home
+                home = find_sumo_home()
+                if home:
+                    cand = os.path.join(home, "bin", "netconvert.exe")
+                    if os.path.isfile(cand):
+                        netconvert_bin = cand
+            except Exception:
+                pass
         if netconvert_bin:
             try:
                 cmd = [

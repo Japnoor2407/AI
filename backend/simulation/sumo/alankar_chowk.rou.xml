@@ -16,12 +16,28 @@
   <route id="route_W_thru" edges="W2C C2E"/>
   <route id="route_W_left" edges="W2C C2N"/>
   <route id="route_W_right" edges="W2C C2S"/>
-  <vehicle id="car_0" type="car" route="route_N_thru" depart="1.00" departLane="best" departSpeed="max"/>
-  <vehicle id="car_1" type="car" route="route_N_right" depart="1.40" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_2" type="motorbike" route="route_N_right" depart="1.00" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_3" type="motorbike" route="route_N_left" depart="1.27" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_4" type="motorbike" route="route_N_thru" depart="1.53" departLane="best" departSpeed="max"/>
-  <vehicle id="car_5" type="car" route="route_E_right" depart="2.00" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_6" type="motorbike" route="route_E_thru" depart="2.00" departLane="best" departSpeed="max"/>
-  <vehicle id="bus_7" type="bus" route="route_E_left" depart="2.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_0" type="motorbike" route="route_E_thru" depart="63.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_1" type="motorbike" route="route_E_left" depart="67.00" departLane="best" departSpeed="max"/>
+  <vehicle id="car_2" type="car" route="route_E_right" depart="68.00" departLane="best" departSpeed="max"/>
+  <vehicle id="car_3" type="car" route="route_W_thru" depart="70.00" departLane="best" departSpeed="max"/>
+  <vehicle id="bus_4" type="bus" route="route_E_left" depart="70.00" departLane="best" departSpeed="max"/>
+  <vehicle id="car_5" type="car" route="route_E_right" depart="75.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_6" type="motorbike" route="route_S_thru" depart="96.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_7" type="motorbike" route="route_S_left" depart="98.00" departLane="best" departSpeed="max"/>
+  <vehicle id="truck_8" type="truck" route="route_S_right" depart="98.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_9" type="motorbike" route="route_W_thru" depart="127.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_10" type="motorbike" route="route_E_left" depart="130.00" departLane="best" departSpeed="max"/>
+  <vehicle id="car_11" type="car" route="route_N_right" depart="144.00" departLane="best" departSpeed="max"/>
+  <vehicle id="car_12" type="car" route="route_E_thru" depart="152.00" departLane="best" departSpeed="max"/>
+  <vehicle id="car_13" type="car" route="route_W_left" depart="156.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_14" type="motorbike" route="route_E_right" depart="169.00" departLane="best" departSpeed="max"/>
+  <vehicle id="car_15" type="car" route="route_W_thru" depart="178.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_16" type="motorbike" route="route_W_left" depart="191.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_17" type="motorbike" route="route_W_thru" depart="191.40" departLane="best" departSpeed="max"/>
+  <vehicle id="car_18" type="car" route="route_W_thru" depart="231.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_19" type="motorbike" route="route_S_left" depart="250.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_20" type="motorbike" route="route_S_right" depart="253.00" departLane="best" departSpeed="max"/>
+  <vehicle id="bus_21" type="bus" route="route_S_thru" depart="258.00" departLane="best" departSpeed="max"/>
+  <vehicle id="bus_22" type="bus" route="route_S_left" depart="263.00" departLane="best" departSpeed="max"/>
+  <vehicle id="motorbike_23" type="motorbike" route="route_W_right" depart="268.00" departLane="best" departSpeed="max"/>
 </routes>
