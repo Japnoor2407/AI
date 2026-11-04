@@ -40,13 +40,4 @@
   <vehicle id="bus_21" type="bus" route="route_S_thru" depart="258.00" departLane="best" departSpeed="max"/>
   <vehicle id="bus_22" type="bus" route="route_S_left" depart="263.00" departLane="best" departSpeed="max"/>
   <vehicle id="motorbike_23" type="motorbike" route="route_W_right" depart="268.00" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_24" type="motorbike" route="route_W_thru" depart="303.00" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_25" type="motorbike" route="route_W_left" depart="311.00" departLane="best" departSpeed="max"/>
-  <vehicle id="truck_26" type="truck" route="route_W_right" depart="316.00" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_27" type="motorbike" route="route_S_thru" depart="318.00" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_28" type="motorbike" route="route_W_left" depart="318.00" departLane="best" departSpeed="max"/>
-  <vehicle id="motorbike_29" type="motorbike" route="route_E_right" depart="325.00" departLane="best" departSpeed="max"/>
-  <vehicle id="car_30" type="car" route="route_W_thru" depart="327.00" departLane="best" departSpeed="max"/>
-  <vehicle id="car_31" type="car" route="route_W_left" depart="331.00" departLane="best" departSpeed="max"/>
-  <vehicle id="truck_32" type="truck" route="route_E_right" depart="353.00" departLane="best" departSpeed="max"/>
 </routes>
